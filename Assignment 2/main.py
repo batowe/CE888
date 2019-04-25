@@ -2,7 +2,7 @@ import numpy as np
 import UCT_mod
 from random import *
 #import UCT
-import pandas as pd
+import pandas as pn
 from sklearn.model_selection import train_test_split
 from sklearn.tree import DecisionTreeClassifier
 
@@ -12,7 +12,7 @@ def playGames(numGames):
         UCT_mod.UCTPlayGame()
     return
 
-gameData = pd.read_csv("gameData.csv", sep=',')  # Read learning data from file
+gameData = pn.read_csv("gameData.csv", sep=',')  # Read learning data from file
 #  print(len(gameData))
 #  print(type(gameData))
 #  for i in gameData:
@@ -39,18 +39,18 @@ def manualReview():
             print(features[i, 3:6])
             print(features[i, 6:9])
 #  print(features)
-features_train, features_test, labels_train, labels_test = train_test_split(features, labels, random_state=3, shuffle=True)
+featuresTraining, featuresTest, labelsTraining, labelsTesting = train_test_split(features, labels, random_state=3, shuffle=True)
 #gameData.corr()
 
 #k_fold = KFold(n_splits=10)
-#clf = RandomForestClassifier(n_estimators = 2000,max_depth = 4)
-#  score_tree = cross_val_score(clf, gameData.data, gameData.target, cv=k_fold, n_jobs=-1)
-#  print('Average accuracy:', np.mean(score_tree))
+#clf = RandomForestClassifier(n_estimators = 1000,max_depth = 9)
+#  scoreTree = crossValScore(clf, gameData.data, gameData.target, cv=k_fold, n_jobs=-1)
+#  print('Average accuracy:', np.mean(scoreTree))
 
 clf = DecisionTreeClassifier(criterion='gini', presort=True)
-clf.fit(features_train, labels_train)
-d_tree_score = clf.score(features_test, labels_test)
-#  print(d_tree_score) # Returns 0.992 on current dataset
+clf.fit(featuresTraining, labelsTraining)
+decTreeScore = clf.score(featuresTest, labelsTesting)
+#  print(decTreeScore) # Returns 0.992 on current dataset
 def accuracyTest():
     # Now, verify the tree's accuracy on the real data
     accuracy = 0
